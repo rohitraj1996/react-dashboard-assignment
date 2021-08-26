@@ -1,0 +1,8 @@
+.data-table {
+    border-top: 1px solid #e7e7e7;
+}
+
+.product-list-table-responsive {
+    max-height: 35rem;
+    overflow-y: auto;
+}
