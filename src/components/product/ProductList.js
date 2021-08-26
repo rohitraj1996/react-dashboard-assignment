@@ -3,6 +3,8 @@ import Header from "../utility/header/Header";
 import {useState} from "react";
 import {Link} from "react-router-dom";
 import StarRating from "../star/StarRating";
+import Button from "../form-elements/Button";
+import FormSubSection from "../form-elements/FormSubSection";
 
 const ProductList = (props) => {
   const [showImage, setShowImage] = useState(false);
@@ -15,20 +17,22 @@ const ProductList = (props) => {
   return (
     <div>
       <Header headerLabel={"Product List"}/>
-      <div className={"row"}>
-        <label className={"col-2 ms-3 my-2"}>Filter By:</label>
-        <input className={"col-1 input-group-sm my-2"}
-               value={inputText}
-               onChange={(event) => onFilterTextChange(event.target.value)} type={"text"}/>
-      </div>
+      <FormSubSection formSubSectionClassName={"row"}
+                      formSubSectionComponentTypes={["label", "input"]}
+                      labelClassName={"col-2 ms-3 my-2"}
+                      labelText={"Filter By:"}
+                      inputClassName={"col-1 input-group-sm my-2"}
+                      value={inputText}
+                      onChange={(event) => onFilterTextChange(event.target.value)}
+                      inputType={"text"}
+      />
       <div className={"pt-2 mx-3 product-list-table-responsive"}>
         <table className={"table data-table"}>
           <thead>
           <tr>
             <th scope={"col"}>
-              <button className={"btn btn-primary"} onClick={() => setShowImage(!showImage)}>
-                Show Image
-              </button>
+              <Button buttonClassName={"btn btn-primary"} buttonText={"Show Image"}
+                      onClick={() => setShowImage(!showImage)}/>
             </th>
             <th scope={"col"}>Product</th>
             <th scope={"col"}>Code</th>
@@ -48,7 +52,8 @@ const ProductList = (props) => {
               <td>{rowObj.price}</td>
               <td><StarRating totalWidth={75} actualWidth={rowObj.starRating * 15}/></td>
               <td>
-                <button className={"btn btn-danger"} onClick={() => props.deleteProduct(rowObj)}>Delete</button>
+                <Button buttonClassName={"btn btn-danger"} buttonText={"Delete"}
+                        onClick={() => props.deleteProduct(rowObj)}/>
               </td>
             </tr>
           ))}
