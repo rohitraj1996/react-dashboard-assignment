@@ -5,6 +5,8 @@ import {Link} from "react-router-dom";
 import StarRating from "../star/StarRating";
 import Button from "../form-elements/Button";
 import FormSubSection from "../form-elements/FormSubSection";
+import {connect} from "react-redux";
+import {removeProductAction} from "../../redux/action/product";
 
 const ProductList = (props) => {
   const [showImage, setShowImage] = useState(false);
@@ -53,7 +55,7 @@ const ProductList = (props) => {
               <td><StarRating totalWidth={75} actualWidth={rowObj.starRating * 15}/></td>
               <td>
                 <Button buttonClassName={"btn btn-danger"} buttonText={"Delete"}
-                        onClick={() => props.deleteProduct(rowObj)}/>
+                        onClick={() => props.dispatch(removeProductAction(rowObj.productId))}/>
               </td>
             </tr>
           ))}
@@ -64,4 +66,7 @@ const ProductList = (props) => {
   )
 }
 
-export default ProductList;
+const ConnectedProductList = connect((state) => ({
+  data: state
+}))(ProductList);
+export default ConnectedProductList;

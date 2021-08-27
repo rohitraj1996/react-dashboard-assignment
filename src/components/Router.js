@@ -1,33 +1,30 @@
 import {Route, Switch} from "react-router-dom";
 import Home from "./home/Home";
-import data from "../data.json";
-import ProductList from "./product/ProductList";
 import ProductDetail from "./product/ProductDetail";
 import Dashboard from "./dashboard/Dashboard";
-import AddProduct from "./product/AddProduct";
-import {useState} from "react";
+import ConnectedProductList from "./product/ProductList";
+import ConnectedAddProduct from "./product/AddProduct";
+import {connect} from "react-redux";
+import {useEffect} from "react";
+import {loadProductAction} from "../redux/action/product";
 
-const Router = () => {
-  const [productData, setProductData] = useState(data);
+const Router = (props) => {
 
-  const addProduct = (product) => {
-    product["productId"] = Number(new Date());
-    setProductData([...productData, product]);
-  }
-
-  const removeProduct = (product) => {
-    setProductData((prevState) => prevState.filter(pro => pro.productId !== product.productId));
-  }
+  useEffect(() => {
+    console.log("Router useEffect...")
+    props.dispatch(loadProductAction());
+  })
 
   return (
     <Switch>
       <Route exact path={"/"} render={() => <Dashboard><Home/></Dashboard>}/>
       <Route path={"/productList"}
-             render={() => <Dashboard><ProductList data={productData} deleteProduct={removeProduct}/></Dashboard>}/>
+             render={() => <Dashboard><ConnectedProductList/></Dashboard>}/>
       <Route path={"/productDetail"} render={() => <Dashboard><ProductDetail/> </Dashboard>}/>
-      <Route path={"/addProduct"} render={() => <Dashboard><AddProduct addProduct={addProduct}/></Dashboard>}/>
+      <Route path={"/addProduct"} render={() => <Dashboard><ConnectedAddProduct/></Dashboard>}/>
     </Switch>
   )
 }
 
-export default Router;
+const ConnectedRouter = connect()(Router);
+export default ConnectedRouter;

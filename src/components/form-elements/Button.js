@@ -1,8 +1,10 @@
 import PropTypes from "prop-types";
 
 const Button = (props) => {
+  const {buttonType, buttonClassName, buttonText, ...rest} = props;
+
   return (
-    <button type={props.buttonType} className={props.buttonClassName} {...props}>{props.buttonText}</button>
+    <button type={buttonType} className={buttonClassName} {...rest}>{buttonText}</button>
   )
 }
 

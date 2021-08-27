@@ -5,16 +5,18 @@ import Button from "./Button";
 import TextArea from "./TextArea";
 
 const FormSubSection = (props) => {
+  const {formSubSectionClassName, formSubSectionComponentTypes, labelClassName, labelText, ...rest} = props;
+
   const componentTypeMap = {
-    "label": <Label {...props} />,
-    "input": <Input {...props} />,
-    "textarea": <TextArea {...props} />,
-    "button": <Button {...props} />
+    "label": (key) => <Label key={key} labelText={labelText} labelClassName={labelClassName} {...rest} />,
+    "input": (key) => <Input key={key} {...rest} />,
+    "textarea": (key) => <TextArea key={key} {...rest} />,
+    "button": (key) => <Button key={key} {...rest} />
   }
 
   return (
-    <div className={props.formSubSectionClassName}>
-      {props.formSubSectionComponentTypes.map(componentType => componentTypeMap[componentType])}
+    <div className={formSubSectionClassName}>
+      {formSubSectionComponentTypes.map((componentType, index) => componentTypeMap[componentType](index))}
     </div>
   )
 }
@@ -26,7 +28,7 @@ FormSubSection.propTypes = {
   inputType: PropTypes.string,
   inputPlaceholder: PropTypes.string,
   inputName: PropTypes.string,
-  inputRequired: PropTypes.string,
+  inputRequired: PropTypes.bool,
   textAreaClassName: PropTypes.string,
   textAreaRows: PropTypes.string,
   textAreaName: PropTypes.string,

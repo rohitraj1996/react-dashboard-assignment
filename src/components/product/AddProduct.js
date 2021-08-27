@@ -2,6 +2,8 @@ import Header from "../utility/header/Header";
 import {useHistory} from "react-router-dom";
 import FormSubSection from "../form-elements/FormSubSection";
 import Button from "../form-elements/Button";
+import {connect} from "react-redux";
+import {addProductAction} from "../../redux/action/product";
 
 const AddProduct = (props) => {
 
@@ -17,7 +19,8 @@ const AddProduct = (props) => {
     formData.forEach((value, key) => (numberTypeField.includes(key)) ?
       convertedJSON[key] = parseFloat(value) : convertedJSON[key] = value);
 
-    props.addProduct(convertedJSON);
+    convertedJSON["productId"] = Number(new Date());
+    props.dispatch(addProductAction(convertedJSON));
     history.push("/productList");
   }
 
@@ -84,4 +87,5 @@ const AddProduct = (props) => {
   )
 }
 
-export default AddProduct;
+const ConnectedAddProduct = connect()(AddProduct)
+export default ConnectedAddProduct;

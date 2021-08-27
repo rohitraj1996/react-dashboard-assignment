@@ -1,8 +1,8 @@
-import Router from "./components/Router";
+import ConnectedRouter from "./components/Router";
 
 function App() {
   return (
-    <Router/>
+    <ConnectedRouter/>
   );
 }
 
