@@ -4,16 +4,8 @@ import ProductDetail from "./product/ProductDetail";
 import Dashboard from "./dashboard/Dashboard";
 import ConnectedProductList from "./product/ProductList";
 import ConnectedAddProduct from "./product/AddProduct";
-import {connect} from "react-redux";
-import {useEffect} from "react";
-import {loadProductAction} from "../redux/action/product";
 
-const Router = (props) => {
-
-  useEffect(() => {
-    console.log("Router useEffect...")
-    props.dispatch(loadProductAction());
-  })
+const Router = () => {
 
   return (
     <Switch>
@@ -26,5 +18,4 @@ const Router = (props) => {
   )
 }
 
-const ConnectedRouter = connect()(Router);
-export default ConnectedRouter;
+export default Router;

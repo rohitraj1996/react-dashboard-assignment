@@ -1,9 +1,18 @@
-import ConnectedRouter from "./components/Router";
+import {useEffect} from "react";
+import {loadProductAction} from "./redux/action/product";
+import {connect} from "react-redux";
+import Router from "./components/Router";
 
-function App() {
+function App(props) {
+
+  useEffect(() => {
+    props.dispatch(loadProductAction());
+  })
+
   return (
-    <ConnectedRouter/>
+    <Router/>
   );
 }
 
-export default App;
+const ConnectedApp = connect()(App);
+export default ConnectedApp;
