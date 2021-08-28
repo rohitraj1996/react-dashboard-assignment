@@ -54,7 +54,7 @@ const SignUp = (props) => {
   return (
     <>
       <Header headerLabel={"Sign Up!"}/>
-      <div className={"row mx-2 mt-3 container"}>
+      <div className={"row mt-3 container"}>
         <form>
           <div className={"mb-3 row"}>
             <Label labelClassName={"col-sm-2 pe-0 col-form-label"} labelText={"First Name"} htmlFor={"firstName"}/>
@@ -119,7 +119,7 @@ const SignUp = (props) => {
           </div>
           {formData.sendCatalog && formData.addresses?.map(
             (address, index) => (
-              <div key={index}>
+              <div key={index} className={"sign-up-address-div"}>
                 <Header className={"sign-up-address-remove"}>
                   <i className={"fa fa-times"} aria-hidden={"true"} onClick={() => removeAddress(index)}/>
                 </Header>

@@ -27,7 +27,7 @@ const AddProduct = (props) => {
   return (
     <div>
       <Header headerLabel={"Add Product"}/>
-      <div className={"row mx-2 mt-3 container"}>
+      <div className={"row mt-3 container"}>
         <form onSubmit={handleSubmit}>
           <FormSubSection formSubSectionComponentTypes={["label", "input"]}
                           formSubSectionClassName={"mb-3"}
