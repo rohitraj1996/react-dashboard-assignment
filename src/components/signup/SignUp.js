@@ -1,3 +1,4 @@
+import "./signup.css";
 import Header from "../utility/header/Header";
 import Address from "./Address";
 import Label from "../form-elements/Label";
@@ -29,6 +30,25 @@ const SignUp = (props) => {
     }
 
     return false;
+  }
+
+  const removeAddress = (index) => {
+    if (formData.addresses.length === 1) {
+      setFormData({
+        ...formData, sendCatalog: false,
+        addresses: formData.addresses.filter((address, key) => key !== index)
+      });
+    } else {
+      setFormData({...formData, addresses: formData.addresses.filter((address, key) => key !== index)});
+    }
+  }
+
+  const handleAddressCheckBox = (event) => {
+    if (event.target.checked && formData.addresses.length === 0) {
+      setFormData({...formData, sendCatalog: !formData.sendCatalog, addresses: [{}]});
+    } else {
+      setFormData({...formData, sendCatalog: !formData.sendCatalog});
+    }
   }
 
   return (
@@ -92,13 +112,19 @@ const SignUp = (props) => {
             </div>
           </div>
           <div className={"mb-3 form-check"}>
-            <Input inputClassName={"form-check-input"} inputType={"checkbox"} value={""} id={"sendCatalog"}
-                   defaultChecked={formData.sendCatalog}
-                   onChange={() => setFormData({...formData, sendCatalog: !formData.sendCatalog})}/>
+            <Input inputClassName={"form-check-input"} inputType={"checkbox"} id={"sendCatalog"}
+                   checked={formData.sendCatalog || false}
+                   onChange={(event) => handleAddressCheckBox(event)}/>
             <Label labelClassName={"form-check-label"} labelText={"Send me your catalog"} htmlFor={"sendCatalog"}/>
           </div>
           {formData.sendCatalog && formData.addresses?.map(
-            (address, index) => <Address key={index} index={index} address={address} onChange={handleAddressChange}/>)}
+            (address, index) => (
+              <div key={index}>
+                <Header className={"sign-up-address-remove"}>
+                  <i className={"fa fa-times"} aria-hidden={"true"} onClick={() => removeAddress(index)}/>
+                </Header>
+                <Address index={index} address={address} onChange={handleAddressChange}/>
+              </div>))}
           {formData.sendCatalog && <Button buttonType={"button"} buttonClassName={"mb-3 btn btn-outline-primary me-4"}
                                            buttonText={"Add Another Address"} onClick={() => addAddress()}/>}
           <Button buttonType={"submit"} buttonClassName={"mb-3 btn btn-primary me-4"} buttonText={"Submit"}/>
