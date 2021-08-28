@@ -5,7 +5,7 @@ import "./dashboard.css";
 const Dashboard = (props) => {
   return (
     <div>
-      <nav className={"row bg-light dashboard-main"}>
+      <nav className={"row bg-light dashboard-main mx-0"}>
         <label className={"col-1 my-auto"}>
           <b>Dashboard</b>
         </label>

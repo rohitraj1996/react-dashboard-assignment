@@ -9,24 +9,34 @@ const ProductDetail = () => {
     <div>
       <Header headerLabel={`Product Detail: ${data.productName}`}/>
       <div className={"row mx-2 mt-3"}>
-        <div className={"col-2"}>
-          <p>Name:</p>
-          <p>Code:</p>
-          <p>Description:</p>
-          <p>Availability:</p>
-          <p>Price:</p>
-          <p>5 star rating:</p>
+        <div className={"col-7"}>
+          <div className={"row"}>
+            <p className={"col-3"}>Name:</p>
+            <p className={"col-9"}>{data.productName}</p>
+          </div>
+          <div className={"row"}>
+            <p className={"col-3"}>Code:</p>
+            <p className={"col-9"}>{data.productCode}</p>
+          </div>
+          <div className={"row"}>
+            <p className={"col-3"}>Description:</p>
+            <p className={"col-9"}>{data.description}</p>
+          </div>
+          <div className={"row"}>
+            <p className={"col-3"}>Availability:</p>
+            <p className={"col-9"}>{data.releaseDate}</p>
+          </div>
+          <div className={"row"}>
+            <p className={"col-3"}>Price:</p>
+            <p className={"col-9"}>{data.price}</p>
+          </div>
+          <div className={"row"}>
+            <p className={"col-3"}>5 star rating:</p>
+            <StarRating className={"col-9"} totalWidth={75} actualWidth={data.starRating * 15}/>
+          </div>
         </div>
         <div className={"col-5"}>
-          <p>{data.productName}</p>
-          <p>{data.productCode}</p>
-          <p>{data.description}</p>
-          <p>{data.releaseDate}</p>
-          <p>{data.price}</p>
-          <p><StarRating totalWidth={75} actualWidth={data.starRating * 15}/></p>
-        </div>
-        <div className={"col-5"}>
-          <img src={data.imageUrl} alt={`${data.productName}`}/>
+          <img className={"product-detail-img"} src={data.imageUrl} alt={`${data.productName}`}/>
         </div>
       </div>
       <div className={"ps-3 py-1 m-0 product-detail-back-btn-div"}>

@@ -7,3 +7,9 @@
     border: 1px solid #e7e7e7;
     background-color: #e7e7e7;
 }
+
+.product-detail-img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: cover;
+}
