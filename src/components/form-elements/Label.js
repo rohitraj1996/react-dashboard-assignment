@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
 
 const Label = (props) => {
+  const {labelClassName, labelText, ...rest} = props;
   return (
-    <label className={props.labelClassName}>{props.labelText}</label>
+    <label className={labelClassName} {...rest}>{labelText}</label>
   )
 }
 

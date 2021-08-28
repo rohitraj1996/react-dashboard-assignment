@@ -32,7 +32,7 @@ const ProductDetail = () => {
           </div>
           <div className={"row"}>
             <p className={"col-3"}>5 star rating:</p>
-            <StarRating className={"col-9"} totalWidth={75} actualWidth={data.starRating * 15}/>
+            <StarRating className={"col-9 px-0"} totalWidth={75} actualWidth={data.starRating * 15}/>
           </div>
         </div>
         <div className={"col-5"}>
