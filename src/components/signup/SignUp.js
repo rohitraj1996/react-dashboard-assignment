@@ -5,11 +5,19 @@ import Label from "../form-elements/Label";
 import Input from "../form-elements/Input";
 import Button from "../form-elements/Button";
 import {useState} from "react";
+import {useHistory} from "react-router-dom";
 
 const SignUp = (props) => {
 
+  const history = useHistory();
   const [formData, setFormData] = useState({
-    addresses: [{}]
+    addresses: [{}],
+    firstName: "",
+    lastName: "",
+    email: "",
+    confirmEmail: "",
+    sendNotification: "",
+    rating: 0
   });
 
   const handleAddressChange = (index, key, value) => {
@@ -17,6 +25,10 @@ const SignUp = (props) => {
       ...formData,
       addresses: formData.addresses.map((address, i) => i === index ? {...address, [key]: value} : address)
     })
+  }
+
+  const handleOnChangeForm = (event) => {
+    setFormData({...formData, [event.target.name]: event.target.value});
   }
 
   const addAddress = () => {
@@ -51,30 +63,40 @@ const SignUp = (props) => {
     }
   }
 
+  const onSubmit = (event) => {
+    event.preventDefault();
+    console.log("Your filled form is: ", formData);
+    alert("Form validated successfully, can be viewed in the console...");
+    history.push("/");
+  }
+
   return (
     <>
       <Header headerLabel={"Sign Up!"}/>
       <div className={"row mt-3 container"}>
-        <form>
+        <form onSubmit={onSubmit}>
           <div className={"mb-3 row"}>
             <Label labelClassName={"col-sm-2 pe-0 col-form-label"} labelText={"First Name"} htmlFor={"firstName"}/>
             <div className={"col-sm-9 ps-0"}>
               <Input inputClassName={"form-control"} inputType={"text"} inputPlaceholder={"First Name (required)"}
-                     id={"firstName"} inputRequired={true} value={formData.firstName}/>
+                     id={"firstName"} inputRequired={true} value={formData.firstName || ""} inputName={"firstName"}
+                     onChange={handleOnChangeForm}/>
             </div>
           </div>
           <div className={"mb-3 row"}>
             <Label labelClassName={"col-sm-2 pe-0 col-form-label"} labelText={"Last Name"} htmlFor={"lastName"}/>
             <div className={"col-sm-9 ps-0"}>
               <Input inputClassName={"form-control"} inputType={"text"} inputPlaceholder={"Last Name (required)"}
-                     id={"lastName"} inputRequired={true} value={formData.lastName}/>
+                     id={"lastName"} inputRequired={true} inputName={"lastName"} value={formData.lastName || ""}
+                     onChange={handleOnChangeForm}/>
             </div>
           </div>
           <div className={"mb-3 row"}>
             <Label labelClassName={"col-sm-2 pe-0 col-form-label"} labelText={"Email"} htmlFor={"email"}/>
             <div className={"col-sm-9 ps-0"}>
               <Input inputClassName={"form-control"} inputType={"text"} inputPlaceholder={"Email (required)"}
-                     id={"email"} inputRequired={true} value={formData.email}/>
+                     id={"email"} inputRequired={true} inputName={"email"} value={formData.email || ""}
+                     onChange={handleOnChangeForm}/>
             </div>
           </div>
           <div className={"mb-3 row"}>
@@ -82,33 +104,38 @@ const SignUp = (props) => {
                    htmlFor={"confirmEmail"}/>
             <div className={"col-sm-9 ps-0"}>
               <Input inputClassName={"form-control"} inputType={"text"} inputPlaceholder={"Confirm Email (required)"}
-                     id={"confirmEmail"} inputRequired={true} value={formData.confirmEmail}/>
+                     id={"confirmEmail"} inputRequired={true} inputName={"confirmEmail"}
+                     value={formData.confirmEmail || ""}
+                     onChange={handleOnChangeForm}/>
             </div>
           </div>
           <div className={"mb-3 row"}>
             <Label labelClassName={"col-sm-2 pe-0 col-form-label"} labelText={"Phone"} htmlFor={"phone"}/>
             <div className={"col-sm-9 ps-0"}>
               <Input inputClassName={"form-control"} inputType={"text"} inputPlaceholder={"Phone"} id={"phone"}
-                     value={formData.phone}/>
+                     inputName={"phone"} value={formData.phone || ""} onChange={handleOnChangeForm}/>
             </div>
           </div>
           <div className={"mb-3 row"}>
             <Label labelClassName={"col-sm-2 pe-0 form-label"} labelText={"Send Notifications"}/>
             <div className={"form-check col-sm-1"}>
               <Input inputClassName={"form-check-input"} inputType={"radio"} inputName={"sendNotification"}
-                     id={"byEmail"}/>
+                     id={"byEmail"} checked={formData.sendNotification === "byEmail"}
+                     onChange={handleOnChangeForm} value={"byEmail"}/>
               <Label labelClassName={"form-check-label"} labelText={"Email"} htmlFor={"byEmail"}/>
             </div>
             <div className={"form-check col-sm-1"}>
               <Input inputClassName={"form-check-input"} inputType={"radio"} inputName={"sendNotification"}
-                     id={"byText"}/>
+                     id={"byText"} checked={formData.sendNotification === "byText"}
+                     onChange={handleOnChangeForm} value={"byText"}/>
               <Label labelClassName={"form-check-label"} labelText={"Text"} htmlFor={"byText"}/>
             </div>
           </div>
           <div className={"mb-3 row"}>
             <Label labelClassName={"col-sm-2 pe-0 col-form-label"} labelText={"Rating"} htmlFor={"rating"}/>
             <div className={"col-sm-9 ps-0"}>
-              <Input inputClassName={"form-control"} inputType={"number"} id={"rating"} value={formData.rating}/>
+              <Input inputClassName={"form-control"} inputType={"number"} id={"rating"} value={formData.rating}
+                     inputName={"rating"} min={0} max={5} onChange={handleOnChangeForm}/>
             </div>
           </div>
           <div className={"mb-3 form-check"}>
